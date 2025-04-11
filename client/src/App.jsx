@@ -28,22 +28,15 @@ const App = () => {
 
       {!hideHeaderFooter && <Navbar />}
 
-      <div className="flex-grow pt-16 ">
+      {/* Apply padding only when header is visible */}
+      <div className={`flex-grow ${!hideHeaderFooter ? "pt-16" : ""}`}>
         <Routes>
           {/* Public Routes */}
-          <Route
-            path="/"
-            element={
-              
-                <Home />
-            
-            }
-          />
+          <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
 
           {/* Private Routes */}
-          
           <Route
             path="/discover"
             element={

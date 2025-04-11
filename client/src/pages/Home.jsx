@@ -86,7 +86,7 @@ const Home = () => {
           Get Started
         </a>
         <a
-          href="#"
+          href=""
           className="bg-white text-blue-600 px-6 py-3 rounded-xl shadow transform transition-transform duration-300 hover:scale-105 text-center"
         >
           Learn More

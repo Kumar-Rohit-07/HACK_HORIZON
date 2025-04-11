@@ -4,28 +4,27 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 export const register = async (req, res) => {
-  const { name, email, password } = req.body;
-
   try {
+    const { name, email, password, role } = req.body;
+
     const existingUser = await User.findOne({ email });
-    if (existingUser) return res.status(400).json({ message: "User already exists" });
+    if (existingUser) return res.status(400).json({ message: 'User already exists' });
 
     const hashedPassword = await bcrypt.hash(password, 10);
-
-    const user = new User({ name, email, password: hashedPassword });
-    await user.save();
-
-    res.status(201).json({
-      success: true,
-      message: "User registered",
-      user: { name: user.name, email: user.email },
+    const newUser = await User.create({
+      name,
+      email,
+      password: hashedPassword,
+      role
     });
-    
-  } catch (err) {
-    console.error("Registration error:", err);
-    res.status(500).json({ message: "Server error" });
+
+    const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
+    res.status(201).json({ token, user: { id: newUser._id, name, email, role } });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };
+
 
 export const login = async (req, res) => {
   try {

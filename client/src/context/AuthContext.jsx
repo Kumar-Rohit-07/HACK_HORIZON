@@ -40,12 +40,13 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("user");
   };
 
-  const register = async (name, email, password) => {
+  const register = async (name, email, password, role) => {
     try {
       const res = await axios.post("http://localhost:9000/api/auth/register", {
         name,
         email,
         password,
+        role
       });
       console.log("Register response:", res.data);
   

@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { FaEnvelope, FaLock, FaEye, FaEyeSlash, FaUser } from "react-icons/fa";
+import { FaEnvelope, FaLock, FaEye, FaEyeSlash, FaUser, FaUserTag } from "react-icons/fa";
 import toast from "react-hot-toast";
 
 const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState("learner");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -18,7 +19,7 @@ const Register = () => {
     e.preventDefault();
     setLoading(true);
 
-    const success = await register(name, email, password);
+    const success = await register(name, email, password, role); // pass role
 
     if (success) {
       toast.success("User registered successfully!");
@@ -62,7 +63,7 @@ const Register = () => {
           />
         </div>
 
-        <div className="relative mb-6">
+        <div className="relative mb-4">
           <FaLock className="absolute top-3 left-3 text-gray-400" />
           <input
             type={showPassword ? "text" : "password"}
@@ -80,6 +81,20 @@ const Register = () => {
           </span>
         </div>
 
+        <div className="relative mb-6">
+          <FaUserTag className="absolute top-3 left-3 text-gray-400" />
+          <select
+            value={role}
+            onChange={(e) => setRole(e.target.value)}
+            className="w-full pl-10 p-3 bg-gray-800 text-gray-100 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
+          >
+            <option value="learner">Learner</option>
+            <option value="mentor">Mentor</option>
+            <option value="builder">Builder</option>
+          </select>
+        </div>
+
         <button
           type="submit"
           className={`w-full p-3 rounded-lg font-semibold shadow-md transition-all duration-300 ${
@@ -91,9 +106,10 @@ const Register = () => {
         >
           {loading ? "Registering..." : "Register"}
         </button>
+
         <p className="mt-4 text-sm text-center text-gray-600">
           Already have an account?{" "}
-          <a href="/login" className="text-indigo-600 hover:underline">
+          <a href="/login" className="text-indigo-500 hover:underline">
             Login
           </a>
         </p>
