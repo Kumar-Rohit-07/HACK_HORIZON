@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext";
+import { useAuth } from "../context/AuthContext";
 import toast from "react-hot-toast";
 
 const Login = () => {
@@ -13,17 +13,18 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-
+  
     const success = await login(email, password);
     if (success) {
       toast.success("Login successful!");
-      setTimeout(() => navigate("/home"), 1000);
+      setTimeout(() => navigate("/"), 1000); // Redirect to home
     } else {
       toast.error("Invalid email or password.");
     }
-
+  
     setLoading(false);
   };
+  
 
   return (
     <div className="flex items-center justify-center h-screen bg-gradient-to-br from-gray-900 to-gray-500">

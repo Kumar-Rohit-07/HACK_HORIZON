@@ -2,21 +2,21 @@ import React from "react";
 
 const MentorCard = ({ mentor }) => {
   return (
-    <div className="bg-white shadow-md rounded-xl p-4 hover:shadow-lg transition duration-200">
-      <div className="flex items-center gap-4">
+    <div className="bg-white shadow-md rounded-xl p-4 sm:p-6 hover:shadow-lg transition duration-200 w-full max-w-md mx-auto">
+      <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4">
         <img
           src={mentor.avatar || "/default-avatar.png"}
           alt="mentor-avatar"
-          className="w-16 h-16 rounded-full object-cover"
+          className="w-20 h-20 rounded-full object-cover"
         />
-        <div>
+        <div className="text-center sm:text-left">
           <h3 className="text-lg font-semibold text-gray-800">{mentor.name}</h3>
-          <p className="text-sm text-gray-500">{mentor.expertise?.join(", ")}</p>
-          <p className="text-sm text-gray-400">{mentor.bio}</p>
+          <p className="text-sm text-gray-500 break-words">{mentor.expertise?.join(", ")}</p>
+          <p className="text-sm text-gray-400 mt-1">{mentor.bio}</p>
         </div>
       </div>
-      <div className="mt-3">
-        <button className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 text-sm">
+      <div className="mt-4 flex justify-center sm:justify-start">
+        <button className="bg-blue-500 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-600 transition">
           Request Mentorship
         </button>
       </div>
