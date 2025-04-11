@@ -16,9 +16,6 @@ const allProjects = [
     tags: ["Forecasting", "Health", "ML"],
     github: "https://github.com/yourusername/blood-donation-forecast",
   },
-  // ...other projects
-
-
   {
     title: "Gaming Hub",
     description: "One-stop destination to discover and play games.",
@@ -114,10 +111,33 @@ const allProjects = [
     description: "Record and save voice notes quickly.",
     techStack: ["React", "Web Audio API"],
     tags: ["Notes", "Audio"],
-  }
+  },
 ];
 
-export default function Projects() {
+const projectConnectLinks = [
+  "https://qxresearch.github.io/qxresearch-event-1",
+  "https://shsarv.github.io/Machine-Learning-Projects/",
+  "https://keshavgbpecdelhi.github.io/Web-Development/",
+  "https://web-dev-project-kart-ixmeetfke-khushi-purwar.vercel.app",
+];
+
+// Ensure links don’t repeat next to each other
+const assignConnectUrls = (projects, links) => {
+  const result = [];
+  let lastUsed = -1;
+
+  for (let i = 0; i < projects.length; i++) {
+    let index = (i + 1) % links.length;
+    if (index === lastUsed) index = (index + 1) % links.length;
+    lastUsed = index;
+
+    result.push({ ...projects[i], connectUrl: links[index] });
+  }
+
+  return result;
+};
+
+const Projects = () => {
   const [visibleCount, setVisibleCount] = useState(9);
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -132,8 +152,11 @@ export default function Projects() {
     setVisibleCount(9);
   };
 
-  const filteredProjects = allProjects.filter((project) =>
-    project.title.toLowerCase().includes(searchTerm)
+  const filteredProjects = assignConnectUrls(
+    allProjects.filter((project) =>
+      project.title.toLowerCase().includes(searchTerm)
+    ),
+    projectConnectLinks
   );
 
   const visibleProjects = filteredProjects.slice(0, visibleCount);
@@ -194,4 +217,6 @@ export default function Projects() {
       )}
     </div>
   );
-}
+};
+
+export default Projects;

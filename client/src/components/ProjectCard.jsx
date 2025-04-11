@@ -27,6 +27,7 @@ export default function ProjectCard({ project }) {
           </ul>
         </div>
       </div>
+
       <div className="mt-4 flex flex-wrap gap-2">
         {project.tags.map((tag, index) => (
           <span
@@ -37,7 +38,18 @@ export default function ProjectCard({ project }) {
           </span>
         ))}
       </div>
+
+      {/* Show Button */}
+      <div className="mt-4 flex justify-end">
+        <a
+          href={project.connectUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:opacity-90 transition"
+        >
+          Show
+        </a>
+      </div>
     </div>
   );
 }
-
