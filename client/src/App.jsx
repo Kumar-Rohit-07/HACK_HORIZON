@@ -1,38 +1,43 @@
 import React from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import MentorCard from "./components/MentorCard";
-import ProjectCard from "./components/ProjectCard";
-import UserCard from './components/UserCard';
+import Footer from "./components/Footer"; // ✅ Import Footer
 
-export default function App() {
-  const sampleMentor = {
-    name: "Dr. Aisha Khan",
-    avatar: "https://i.pravatar.cc/150?img=47",
-    expertise: ["AI", "Machine Learning", "EdTech"],
-    bio: "10+ years guiding students in tech innovation."
-  };
+import Home from "./pages/Home";
+import Discover from "./pages/Discover";
+import Projects from "./pages/Projects";
+import Mentors from "./pages/Mentors";
+import Profile from "./pages/Profile";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
-  const sampleProject = {
-    title: "Smart Attendance System",
-    description: "Using face recognition to automate attendance.",
-    techStack: ["React", "Node.js", "TensorFlow"],
-    tags: ["AI", "EdTech", "Innovation"]
-  };
+import { Toaster } from "react-hot-toast";
 
-  const sampleUser = {
-    name: "Aditya Singh",
-    avatar: "https://i.pravatar.cc/150?img=32",
-    skills: ["JavaScript", "React", "Node.js"],
-    bio: "Passionate about building impactful EdTech solutions."
-  };
+const App = () => {
+  const location = useLocation();
+  const hideHeaderFooter = ["/login", "/register"].includes(location.pathname); // ✅ renamed
 
   return (
-    <div className="min-h-screen bg-gray-100 px-6 py-4 space-y-6">
-      <Navbar />
-      <h1 className="text-xl font-bold text-gray-700">Component Showcase</h1>
-      <MentorCard mentor={sampleMentor} />
-      <ProjectCard project={sampleProject} />
-      <UserCard user={sampleUser} />
+    <div className="min-h-screen bg-gray-100 flex flex-col justify-between">
+      <Toaster position="top-center" reverseOrder={false} />
+
+      {!hideHeaderFooter && <Navbar />}
+
+      <div className="flex-grow pt-20 px-3 py-3"> {/* flex-grow ensures footer sticks to bottom if page is short */}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/discover" element={<Discover />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/mentors" element={<Mentors />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
+      </div>
+
+      {!hideHeaderFooter && <Footer />} {/* ✅ Add Footer here */}
     </div>
   );
-}
+};
+
+export default App;
