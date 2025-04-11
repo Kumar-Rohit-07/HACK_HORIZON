@@ -12,6 +12,10 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 
 import { Toaster } from "react-hot-toast";
+import FAQs from "./pages/FAQs";
+import Contact from "./pages/Contact"; // ✅ Import Contact page
+import AboutUs from "./pages/AboutUs"; // ✅ Import About Us page
+import Privacy from "./pages/Privacy"; // ✅ Import Privacy page
 
 const App = () => {
   const location = useLocation();
@@ -32,6 +36,10 @@ const App = () => {
           <Route path="/profile" element={<Profile />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/FAQs" element={<FAQs />} /> {/* ✅ Added FAQs route */}
+          <Route path="/contact" element={<Contact />} /> {/* ✅ Added Contact route */}
+          <Route path="/aboutus" element={<AboutUs />} /> {/* ✅ Added About Us route */}
+          <Route path="/privacy" element={<Privacy />} /> {/* ✅ Added Privacy route */}
         </Routes>
       </div>
 
