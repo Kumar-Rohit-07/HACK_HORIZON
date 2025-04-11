@@ -7,13 +7,18 @@ const allProjects = [
     description: "An AI-powered resume parser and job matcher.",
     techStack: ["React", "Node.js", "MongoDB", "OpenAI API"],
     tags: ["AI", "Resume", "Job Matching"],
+    github: "https://github.com/yourusername/ai-resume-analyzer",
   },
   {
     title: "Blood Donation Forecast",
     description: "Predictive analytics tool for blood donation needs.",
     techStack: ["Python", "Flask", "ML", "Pandas"],
     tags: ["Forecasting", "Health", "ML"],
+    github: "https://github.com/yourusername/blood-donation-forecast",
   },
+  // ...other projects
+
+
   {
     title: "Gaming Hub",
     description: "One-stop destination to discover and play games.",

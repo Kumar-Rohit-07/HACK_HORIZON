@@ -27,79 +27,84 @@ const Navbar = () => {
   }}
 >
 
-      <div className="max-w-7xl mx-auto flex justify-between items-center">
-        {/* Logo */}
-        <Link
-          to="/"
-          className="flex items-center space-x-2 text-2xl font-bold text-blue-600"
-        >
-          <PiUsersThree className="text-blue-500 w-9 h-9" />
-          <span>CollabEdTech</span>
+<div className="max-w-7xl mx-auto flex justify-between items-center">
+{/* Logo (Left side) */}
+<Link
+  to="/"
+  className="flex items-center space-x-2 text-2xl font-bold text-blue-600"
+>
+  <PiUsersThree className="text-blue-500 w-9 h-9" />
+  <span>CollabEdTech</span>
+</Link>
+
+{/* Right-side Navigation Wrapper */}
+<div className="flex items-center space-x-8 ml-auto">
+  {/* Navigation Links (Desktop) */}
+  <div className="hidden md:flex space-x-6">
+  <Link to="/" className="text-gray-700 hover:text-blue-500 font-semibold text-[1.05rem]">Home</Link>
+  <Link to="/discover" className="text-gray-700 hover:text-blue-500 font-semibold text-[1.05rem]">
+    Discover
+  </Link>
+  <Link to="/projects" className="text-gray-700 hover:text-blue-500 font-semibold text-[1.05rem]">
+    Projects
+  </Link>
+  <Link to="/mentors" className="text-gray-700 hover:text-blue-500 font-semibold text-[1.05rem]">
+    Mentors
+  </Link>
+</div>
+
+
+  {/* Auth/Profile Section */}
+  <div className="hidden md:flex items-center space-x-4 relative">
+    {!user ? (
+      <>
+        <Link to="/register">
+          <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+            Register
+          </button>
         </Link>
-
-        {/* Desktop Navigation */}
-        <div className="hidden md:flex flex-1 justify-center space-x-6">
-          <Link to="/discover" className="text-gray-700 hover:text-blue-500">
-            Discover
-          </Link>
-          <Link to="/projects" className="text-gray-700 hover:text-blue-500">
-            Projects
-          </Link>
-          <Link to="/mentors" className="text-gray-700 hover:text-blue-500">
-            Mentors
-          </Link>
-          
-        </div>
-
-        {/* Auth / Profile - Desktop */}
-        <div className="hidden md:flex items-center space-x-4 relative">
-          {!user ? (
-            <>
-              <Link to="/register">
-                <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-                  Register
-                </button>
-              </Link>
-              <Link to="/login">
-                <button className="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300">
-                  Log In
-                </button>
-              </Link>
-            </>
-          ) : (
-            <div className="relative">
-              <button
-                onClick={() => setShowProfileMenu(!showProfileMenu)}
-                className="focus:outline-none"
-              >
-                <FaUserCircle className="text-gray-700 w-8 h-8" />
-              </button>
-
-              {showProfileMenu && (
-                <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md z-50">
-                  <div className="px-4 py-2 text-gray-800 border-b">
-                    {user.name}
-                  </div>
-                  <button
-                    onClick={handleLogout}
-                    className="w-full px-4 py-2 text-left text-red-600 hover:bg-gray-100"
-                  >
-                    Logout
-                  </button>
-                </div>
-              )}
-            </div>
-          )}
-        </div>
-
-        {/* Mobile Menu Button */}
+        <Link to="/login">
+          <button className="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300">
+            Log In
+          </button>
+        </Link>
+      </>
+    ) : (
+      <div className="relative">
         <button
-          className="md:hidden text-gray-700"
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={() => setShowProfileMenu(!showProfileMenu)}
+          className="focus:outline-none"
         >
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
+          <FaUserCircle className="text-gray-700 w-8 h-8" />
         </button>
+
+        {showProfileMenu && (
+          <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md z-50">
+            <div className="px-4 py-2 text-gray-800 border-b">
+              {user.name}
+            </div>
+            <button
+              onClick={handleLogout}
+              className="w-full px-4 py-2 text-left text-red-600 hover:bg-gray-100"
+            >
+              Logout
+            </button>
+          </div>
+        )}
       </div>
+    )}
+  </div>
+</div>
+
+{/* Mobile Menu Button */}
+<button
+  className="md:hidden text-gray-700"
+  onClick={() => setIsOpen(!isOpen)}
+>
+  {isOpen ? <X size={24} /> : <Menu size={24} />}
+</button>
+</div>
+
 
       {/* Mobile Menu Content */}
       {isOpen && (

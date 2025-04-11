@@ -39,10 +39,20 @@ const mentors = [
 const Discover = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchType, setSearchType] = useState("project");
+  const [expandedIndex, setExpandedIndex] = useState(null);
 
   const toggleSearchType = () => {
     setSearchType(prev => (prev === "project" ? "mentor" : "project"));
     setSearchQuery("");
+    setExpandedIndex(null);
+  };
+
+  const handleToggleExpand = (index) => {
+    setExpandedIndex(prev => (prev === index ? null : index));
+  };
+
+  const handleConnect = (name) => {
+    alert(`Connection request sent to ${name}`);
   };
 
   const filteredProjects = projects.filter(p =>
@@ -51,6 +61,36 @@ const Discover = () => {
 
   const filteredMentors = mentors.filter(m =>
     m.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const Card = ({ title, desc, detail, index, type }) => (
+    <div className="p-5 bg-white rounded-xl shadow-md transition transform hover:scale-105 flex flex-col justify-between h-full">
+      <div>
+        <h3 className="text-lg font-semibold text-blue-700">{title}</h3>
+        <p className="text-sm text-gray-600 mt-2">{desc}</p>
+
+        {expandedIndex === index && (
+          <p className="text-sm text-gray-500 mt-2">{detail}</p>
+        )}
+      </div>
+
+      <div className="mt-4 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
+        <button
+          className="text-sm text-blue-600 hover:underline"
+          onClick={() => handleToggleExpand(index)}
+        >
+          {expandedIndex === index ? "Show Less" : "Show More"}
+        </button>
+        <button
+          className={`${
+            type === "mentor" ? "bg-green-600" : "bg-blue-600"
+          } text-white px-4 py-2 rounded-lg text-sm hover:opacity-90 transition`}
+          onClick={() => handleConnect(title)}
+        >
+          Connect
+        </button>
+      </div>
+    </div>
   );
 
   return (
@@ -92,13 +132,14 @@ const Discover = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
             {filteredProjects.length > 0 ? (
               filteredProjects.map((proj, index) => (
-                <div
+                <Card
                   key={index}
-                  className="p-5 bg-white rounded-xl shadow-md transition transform hover:scale-105"
-                >
-                  <h3 className="text-lg font-semibold text-blue-700">{proj.title}</h3>
-                  <p className="text-sm text-gray-600 mt-2">{proj.desc}</p>
-                </div>
+                  title={proj.title}
+                  desc={proj.desc}
+                  detail="This is a more detailed description of the project, its goals, tech stack, and potential impact in EdTech. Replace with real data."
+                  index={index}
+                  type="project"
+                />
               ))
             ) : (
               <p className="text-gray-400 col-span-full">No projects found.</p>
@@ -113,13 +154,14 @@ const Discover = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredMentors.length > 0 ? (
               filteredMentors.map((mentor, index) => (
-                <div
+                <Card
                   key={index}
-                  className="p-5 bg-white rounded-xl shadow-md transition transform hover:scale-105"
-                >
-                  <h3 className="text-lg font-semibold text-blue-700">{mentor.name}</h3>
-                  <p className="text-sm text-gray-600 mt-2">{mentor.desc}</p>
-                </div>
+                  title={mentor.name}
+                  desc={mentor.desc}
+                  detail="This mentor is actively involved in educational innovation and mentoring programs. They offer guidance in tech stacks, career growth, and project ideation."
+                  index={index}
+                  type="mentor"
+                />
               ))
             ) : (
               <p className="text-gray-400 col-span-full">No mentors found.</p>
