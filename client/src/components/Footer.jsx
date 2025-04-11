@@ -8,8 +8,21 @@ const Footer = () => {
       <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row md:items-center justify-between text-sm font-semibold">
 
+<<<<<<< Updated upstream
           {/* Copyright - Left */}
           <div className="text-sm text-gray-400 ml-20 mb-4 md:mb-0">
+=======
+          {/* Navigation */}
+          <div className="flex flex-col sm:flex-row sm:justify-center gap-4 sm:gap-8">
+            <Link to="/" className="hover:text-white transition">About Us</Link>
+            <Link to="/discover" className="hover:text-white transition">Contact</Link>
+            <Link to="/projects" className="hover:text-white transition">Privacy Policy</Link>
+            <Link to="/mentors" className="hover:text-white transition">Back</Link>
+          </div>
+
+          {/* Copyright */}
+          <div className="text-sm text-gray-500 md:text-right">
+>>>>>>> Stashed changes
             &copy; {new Date().getFullYear()} CollabEdTech. All rights reserved.
           </div>
 

@@ -1,7 +1,8 @@
 import React from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
+import PrivateRoute from "./components/PrivateRoute";
 import Navbar from "./components/Navbar";
-import Footer from "./components/Footer"; // ✅ Import Footer
+import Footer from "./components/Footer";
 
 import Home from "./pages/Home";
 import Discover from "./pages/Discover";
@@ -19,14 +20,15 @@ import Privacy from "./pages/Privacy"; // ✅ Import Privacy page
 
 const App = () => {
   const location = useLocation();
-  const hideHeaderFooter = ["/login", "/register"].includes(location.pathname); // ✅ renamed
+  const hideHeaderFooter = ["/login", "/register"].includes(location.pathname);
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col justify-between">
-      <Toaster position="top-center" reverseOrder={false} />
+  <Toaster position="top-center" reverseOrder={false} />
 
-      {!hideHeaderFooter && <Navbar />}
+  {!hideHeaderFooter && <Navbar />}
 
+<<<<<<< Updated upstream
       <div className="flex-grow pt-20 px-3 py-3"> {/* flex-grow ensures footer sticks to bottom if page is short */}
         <Routes>
           <Route path="/" element={<Home />} />
@@ -44,7 +46,30 @@ const App = () => {
       </div>
 
       {!hideHeaderFooter && <Footer />} {/* ✅ Add Footer here */}
+=======
+  {hideHeaderFooter ? (
+    // 🟢 Clean layout for login/register
+    <Routes>
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+    </Routes>
+  ) : (
+    // 🔵 Layout with padding for regular pages
+    <div className="flex-grow pt-20 px-3 py-3 overflow-auto">
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/discover" element={<PrivateRoute><Discover /></PrivateRoute>} />
+        <Route path="/projects" element={<PrivateRoute><Projects /></PrivateRoute>} />
+        <Route path="/mentors" element={<PrivateRoute><Mentors /></PrivateRoute>} />
+        <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
+      </Routes>
+>>>>>>> Stashed changes
     </div>
+  )}
+
+  {!hideHeaderFooter && <Footer />}
+</div>
+
   );
 };
 

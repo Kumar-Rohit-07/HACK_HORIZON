@@ -39,11 +39,16 @@ const Home = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center px-4 py-12">
-      <h1 className="text-4xl sm:text-5xl font-extrabold text-blue-600 mb-6 text-center">
+    <div
+      className="min-h-screen flex flex-col items-center justify-center px-0 py-0"
+      style={{
+        background: "linear-gradient(to bottom right, #0f2027, #203a43, #2c5364)",
+      }}
+    >
+      <h1 className="text-4xl sm:text-5xl font-extrabold text-blue-500 mb-6 text-center">
         Welcome to CollabEdTech
       </h1>
-      <p className="text-gray-700 text-lg sm:text-xl max-w-2xl text-center mb-8">
+      <p className="text-white text-lg sm:text-xl max-w-2xl text-center mb-8">
         Connect with mentors, discover innovative projects, and collaborate with passionate learners to build the future of education.
       </p>
 
@@ -71,22 +76,22 @@ const Home = () => {
           ▶
         </button>
       </div>
-      <div className="flex flex-col sm:flex-row gap-6 mb-10 my-8">
+
+      {/* Buttons */}
+      <div className="flex flex-col sm:flex-row gap-6 mt-10 mb-6">
         <a
           href="#"
-          className="bg-blue-600 text-white px-6 py-3 rounded-xl shadow hover:bg-blue-700 transition duration-300 text-center"
+          className="bg-blue-500 text-white px-6 py-3 rounded-xl shadow transform transition-transform duration-300 hover:scale-105 text-center"
         >
           Get Started
         </a>
         <a
           href="#"
-          className="bg-white border border-blue-600 text-blue-600 px-6 py-3 rounded-xl shadow hover:bg-blue-50 transition duration-300 text-center"
+          className="bg-white text-blue-600 px-6 py-3 rounded-xl shadow transform transition-transform duration-300 hover:scale-105 text-center"
         >
           Learn More
         </a>
       </div>
-
-      {/* Optional Illustration */}
     </div>
   );
 };

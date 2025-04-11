@@ -54,9 +54,14 @@ const Discover = () => {
   );
 
   return (
-    <div className="px-4 sm:px-6 md:px-12 py-8">
+    <div
+      className="min-h-screen px-4 sm:px-6 md:px-12 py-10"
+      style={{
+        background: "linear-gradient(to bottom right, #0f2027, #203a43, #2c5364)",
+      }}
+    >
       <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-6">
-        <h1 className="text-3xl font-bold text-blue-600 text-center md:text-left">
+        <h1 className="text-3xl font-bold text-white text-center md:text-left">
           Discover Projects & People
         </h1>
 
@@ -77,23 +82,26 @@ const Discover = () => {
         </div>
       </div>
 
-      <p className="text-gray-700 mb-6 text-center md:text-left">
+      <p className="text-gray-300 mb-6 text-center md:text-left">
         Explore trending projects, new developers, and innovative ideas in the EdTech space.
       </p>
 
       {searchType === "project" && (
         <>
-          <h2 className="text-2xl font-semibold mb-4 text-gray-800">🔥 Projects</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
+          <h2 className="text-2xl font-semibold mb-4 text-white">🔥 Projects</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
             {filteredProjects.length > 0 ? (
               filteredProjects.map((proj, index) => (
-                <div key={index} className="p-4 bg-white shadow rounded-xl">
-                  <h3 className="text-lg font-semibold text-blue-600">{proj.title}</h3>
+                <div
+                  key={index}
+                  className="p-5 bg-white rounded-xl shadow-md transition transform hover:scale-105"
+                >
+                  <h3 className="text-lg font-semibold text-blue-700">{proj.title}</h3>
                   <p className="text-sm text-gray-600 mt-2">{proj.desc}</p>
                 </div>
               ))
             ) : (
-              <p className="text-gray-500 col-span-full">No projects found.</p>
+              <p className="text-gray-400 col-span-full">No projects found.</p>
             )}
           </div>
         </>
@@ -101,17 +109,20 @@ const Discover = () => {
 
       {searchType === "mentor" && (
         <>
-          <h2 className="text-2xl font-semibold mb-4 text-gray-800">👩‍🏫 Mentors</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <h2 className="text-2xl font-semibold mb-4 text-white">👩‍🏫 Mentors</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredMentors.length > 0 ? (
               filteredMentors.map((mentor, index) => (
-                <div key={index} className="p-4 bg-white shadow rounded-xl">
-                  <h3 className="text-lg font-semibold text-blue-600">{mentor.name}</h3>
+                <div
+                  key={index}
+                  className="p-5 bg-white rounded-xl shadow-md transition transform hover:scale-105"
+                >
+                  <h3 className="text-lg font-semibold text-blue-700">{mentor.name}</h3>
                   <p className="text-sm text-gray-600 mt-2">{mentor.desc}</p>
                 </div>
               ))
             ) : (
-              <p className="text-gray-500 col-span-full">No mentors found.</p>
+              <p className="text-gray-400 col-span-full">No mentors found.</p>
             )}
           </div>
         </>

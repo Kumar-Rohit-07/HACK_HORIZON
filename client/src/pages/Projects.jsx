@@ -124,7 +124,7 @@ export default function Projects() {
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value.toLowerCase());
-    setVisibleCount(9); // reset view on new search
+    setVisibleCount(9);
   };
 
   const filteredProjects = allProjects.filter((project) =>
@@ -135,13 +135,18 @@ export default function Projects() {
   const isAllVisible = visibleProjects.length >= filteredProjects.length;
 
   return (
-    <div className="min-h-screen bg-gray-100 px-6 py-8">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold text-gray-800">Projects</h1>
+    <div
+      className="min-h-screen px-6 py-10"
+      style={{
+        background: "linear-gradient(to bottom right, #0f2027, #203a43, #2c5364)",
+      }}
+    >
+      <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
+        <h1 className="text-3xl font-bold text-white">🚀 Projects</h1>
         <input
           type="text"
           placeholder="Search Projects..."
-          className="border border-gray-300 rounded px-4 py-2 w-60 focus:outline-none focus:ring focus:ring-blue-200"
+          className="border border-gray-500 rounded px-4 py-2 w-full md:w-72 bg-white/90 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
           onChange={handleSearchChange}
           value={searchTerm}
         />
@@ -153,14 +158,14 @@ export default function Projects() {
             {visibleProjects.map((project, index) => (
               <div
                 key={index}
-                className="transform transition duration-300 hover:scale-105"
+                className="transform transition duration-300 hover:scale-105 hover:shadow-lg hover:shadow-blue-400/40"
               >
                 <ProjectCard project={project} />
               </div>
             ))}
           </div>
 
-          <div className="flex justify-center mt-8">
+          <div className="flex justify-center mt-10 space-x-4">
             {!isAllVisible && (
               <button
                 onClick={handleShowMore}
@@ -172,7 +177,7 @@ export default function Projects() {
             {isAllVisible && filteredProjects.length > 9 && (
               <button
                 onClick={handleShowLess}
-                className="bg-gray-600 text-white px-6 py-2 rounded hover:bg-gray-700 transition"
+                className="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-700 transition"
               >
                 Show Less
               </button>
@@ -180,7 +185,7 @@ export default function Projects() {
           </div>
         </>
       ) : (
-        <p className="text-center text-gray-500 text-lg">No projects found.</p>
+        <p className="text-center text-gray-400 text-lg">No projects found.</p>
       )}
     </div>
   );

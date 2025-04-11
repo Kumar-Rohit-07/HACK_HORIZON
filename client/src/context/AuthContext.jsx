@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 
+
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
