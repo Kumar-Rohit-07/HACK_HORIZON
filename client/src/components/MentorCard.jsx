@@ -15,11 +15,18 @@ const MentorCard = ({ mentor }) => {
           <p className="text-sm text-gray-400 mt-1">{mentor.bio}</p>
         </div>
       </div>
-      <div className="mt-4 flex justify-center sm:justify-start">
-        <button className="bg-blue-500 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-600 transition">
-          Request Mentorship
-        </button>
-      </div>
+      {mentor.linkedin && (
+        <div className="mt-4 flex justify-center sm:justify-start">
+          <a
+            href={mentor.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-blue-500 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-600 transition"
+          >
+            Request Mentorship
+          </a>
+        </div>
+      )}
     </div>
   );
 };

@@ -2,127 +2,116 @@ import React, { useState } from "react";
 import MentorCard from "../components/MentorCard";
 
 const mentorsList = [
-    {
-        name: "Dr. Anjali Sharma",
-        avatar: "/avatars/anjali.png",
-        expertise: ["AI", "Machine Learning", "Python"],
-        bio: "10+ years in academia and industry, passionate about mentoring students in AI."
-      },
-      {
-        name: "Rajeev Mehta",
-        avatar: "/avatars/rajeev.png",
-        expertise: ["Web Development", "React", "Node.js"],
-        bio: "Full-stack developer and startup mentor with a knack for building MVPs quickly."
-      },
-      {
-        name: "Sana Khan",
-        avatar: "/avatars/sana.png",
-        expertise: ["Cybersecurity", "DevSecOps"],
-        bio: "Security enthusiast working with cloud-native security practices."
-      },
-      {
-        name: "Mehul Desai",
-        avatar: "/avatars/mehul.png",
-        expertise: ["Cloud", "AWS", "Azure"],
-        bio: "Cloud architect with deep experience in scalable infrastructure."
-      },
-      {
-        name: "Aisha Ali",
-        avatar: "/avatars/aisha.png",
-        expertise: ["UI/UX", "Figma", "Design Thinking"],
-        bio: "Design mentor helping teams craft user-centered products."
-      },
-      {
-        name: "John Smith",
-        avatar: "/avatars/john.png",
-        expertise: ["Blockchain", "Solidity"],
-        bio: "Web3 enthusiast mentoring startups in decentralized tech."
-      },
-      {
-        name: "Priya Reddy",
-        avatar: "/avatars/priya.png",
-        expertise: ["Data Science", "Pandas", "R"],
-        bio: "Loves turning data into insights and teaching data literacy."
-      },
-      {
-        name: "Carlos Diaz",
-        avatar: "/avatars/carlos.png",
-        expertise: ["Java", "Spring Boot"],
-        bio: "Backend systems expert and long-time mentor."
-      },
-      {
-        name: "Haruki Tanaka",
-        avatar: "/avatars/haruki.png",
-        expertise: ["Robotics", "AI"],
-        bio: "Robotics engineer mentoring students in autonomous systems."
-      },
-      {
-        name: "Leila Benali",
-        avatar: "/avatars/leila.png",
-        expertise: ["Big Data", "Hadoop", "Spark"],
-        bio: "Helps scale data processing for high-volume pipelines."
-      },
-      {
-        name: "Mark Jensen",
-        avatar: "/avatars/mark.png",
-        expertise: ["Game Dev", "Unity", "C#"],
-        bio: "Game developer mentoring indie devs in interactive storytelling."
-      },
-      {
-        name: "Fatima Zahra",
-        avatar: "/avatars/fatima.png",
-        expertise: ["AI Ethics", "Policy"],
-        bio: "Focused on responsible AI and ethical tech education."
-      },
-      {
-        name: "Yusuf Khan",
-        avatar: "/avatars/yusuf.png",
-        expertise: ["Linux", "DevOps", "Bash"],
-        bio: "Mentors young engineers in DevOps tools and systems."
-      },
-      {
-        name: "Emily Zhao",
-        avatar: "/avatars/emily.png",
-        expertise: ["EdTech", "Startups"],
-        bio: "EdTech founder supporting early-stage teams with strategy."
-      },
-      {
-        name: "Omar Said",
-        avatar: "/avatars/omar.png",
-        expertise: ["AR/VR", "Unity"],
-        bio: "Helps build immersive experiences in education."
-      },
-      {
-        name: "Anita George",
-        avatar: "/avatars/anita.png",
-        expertise: ["Marketing", "Growth Hacking"],
-        bio: "Growth advisor helping educational platforms scale."
-      },
-      {
-        name: "Kunal Verma",
-        avatar: "/avatars/kunal.png",
-        expertise: ["Python", "Flask", "APIs"],
-        bio: "Backend mentor simplifying API design and architecture."
-      },
-      {
-        name: "Zara Nasser",
-        avatar: "/avatars/zara.png",
-        expertise: ["AI", "NLP"],
-        bio: "Works on natural language models and AI assistants."
-      },
-      {
-        name: "Ethan Blake",
-        avatar: "/avatars/ethan.png",
-        expertise: ["C++", "Embedded Systems"],
-        bio: "Mentors in low-level programming and hardware-software integration."
-      },
-      {
-        name: "Neha Roy",
-        avatar: "/avatars/neha.png",
-        expertise: ["React", "TypeScript"],
-        bio: "Front-end mentor focused on clean and scalable code."
-      },
-    ];
+  {
+    name: "Kala Philo",
+    avatar: "/avatars/default-avatar.png",
+    expertise: ["Blockchain", "Web3"],
+    bio: "Blockchain strategist mentoring on Web3 ecosystems and community building.",
+    linkedin: "https://www.linkedin.com/in/kalaphilo"
+  },
+  {
+    name: "Adam Davies",
+    avatar: "/avatars/default-avatar.png",
+    expertise: ["Web Development", "Node.js"],
+    bio: "Helping devs launch projects with scalable web stacks.",
+    linkedin: "https://www.linkedin.com/in/adamdavieswebdev/"
+  },
+  {
+    name: "Giuseppe De Luca",
+    avatar: "/avatars/default-avatar.png",
+    expertise: ["Blockchain", "Smart Contracts"],
+    bio: "Mentoring in Ethereum smart contract development and decentralized identity.",
+    linkedin: "https://www.linkedin.com/in/giupi-deluca"
+  },
+  {
+    name: "Illia Meserenko",
+    avatar: "/avatars/default-avatar.png",
+    expertise: ["Web Development", "React"],
+    bio: "Helping developers become professionals with modern web skills.",
+    linkedin: "https://www.linkedin.com/in/illia-meserenko-90014a274/"
+  },
+  {
+    name: "Sameer Nigam",
+    avatar: "/avatars/sameer.png",
+    expertise: ["AI", "NLP", "LLMs"],
+    bio: "AI builder and mentor focused on LLMs and GenAI space.",
+    linkedin: "https://www.linkedin.com/in/aiwithsameer"
+  },
+  {
+    name: "Rushendra Sidibomma",
+    avatar: "/avatars/rushendra.png",
+    expertise: ["AI", "ML", "Deep Learning"],
+    bio: "AI researcher and mentor dedicated to building smart, scalable systems.",
+    linkedin: "https://www.linkedin.com/in/rushendra-sidibomma/"
+  },
+  {
+    name: "Andre Gomez",
+    avatar: "/avatars/default-avatar.png",
+    expertise: ["Blockchain", "Smart Contracts", "Web3"],
+    bio: "Blockchain engineer focused on DeFi and secure contract systems.",
+    linkedin: "https://www.linkedin.com/in/andre-gomez-blockchain"
+  },
+  {
+    name: "Aaron Borsay",
+    avatar: "/avatars/default-avatar.png",
+    expertise: ["Web Development", "JavaScript"],
+    bio: "Mentor focused on frontend frameworks and building clean UI.",
+    linkedin: "https://www.linkedin.com/in/aborsay/"
+  },
+  {
+    name: "Nichole Harrison",
+    avatar: "/avatars/default-avatar.png",
+    expertise: ["Web Development", "Frontend"],
+    bio: "Helping developers grow through hands-on mentorship and feedback.",
+    linkedin: "https://www.linkedin.com/in/nicholeharrison1985/"
+  },
+  {
+    name: "Rakesh Patel",
+    avatar: "/avatars/default-avatar.png",
+    expertise: ["Blockchain", "Crypto", "Decentralized Apps"],
+    bio: "Web3 advocate and blockchain mentor working on innovative crypto solutions.",
+    linkedin: "https://www.linkedin.com/in/rakesh-kumar-patel"
+  },
+  {
+    name: "Pratik Desai",
+    avatar: "/avatars/pratik.png",
+    expertise: ["AI", "IoT", "Healthcare AI"],
+    bio: "Founder at KissanAI, building AI-powered solutions for agriculture.",
+    linkedin: "https://www.linkedin.com/in/pratik-desai-11074412a/"
+  },
+  {
+    name: "Mohammad H. Rafiei, Ph.D.",
+    avatar: "/avatars/mohammad.png",
+    expertise: ["AI", "Computer Vision", "PhD"],
+    bio: "Ph.D. in AI, mentor in ML research and CV applications.",
+    linkedin: "https://www.linkedin.com/in/mhrafiei"
+  },
+  {
+    name: "Gaurav Sharma",
+    avatar: "/avatars/gaurav.png",
+    expertise: ["AI", "NLP", "Prompt Engineering"],
+    bio: "AI mentor working on GenAI and NLP-powered education tools.",
+    linkedin: "https://www.linkedin.com/in/gauravsharma300"
+  },
+  {
+    name: "Enjilla Eman",
+    avatar: "/avatars/default-avatar.png",
+    expertise: ["Blockchain", "Web3", "DAOs"],
+    bio: "Web3 mentor focused on building decentralized governance systems.",
+    linkedin: "https://www.linkedin.com/in/enjilla-eman-634b9a139"
+  },
+  {
+    name: "Manish Mazumder",
+    avatar: "/avatars/manish.png",
+    expertise: ["AI", "Data Engineering"],
+    bio: "AI technologist and speaker, focusing on scalable AI applications.",
+    linkedin: "https://www.linkedin.com/in/manishmazumder"
+  }
+];
+
+
+
+
 const Mentors = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [visibleCount, setVisibleCount] = useState(9);
