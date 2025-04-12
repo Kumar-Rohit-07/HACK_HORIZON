@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import toast from "react-hot-toast";
 
@@ -7,24 +7,26 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
   const { login } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-  
+    setError(null); // Reset any previous error
+
     const success = await login(email, password);
     if (success) {
       toast.success("Login successful!");
       setTimeout(() => navigate("/"), 1000); // Redirect to home
     } else {
+      setError("Invalid email or password.");
       toast.error("Invalid email or password.");
     }
-  
+
     setLoading(false);
   };
-  
 
   return (
     <div className="flex items-center justify-center h-screen bg-gradient-to-br from-gray-900 to-gray-500">
@@ -35,6 +37,12 @@ const Login = () => {
         <h2 className="text-3xl font-bold mb-6 text-center text-blue-400">
           Login to Your Account
         </h2>
+
+        {error && (
+          <div className="mb-4 text-red-500 text-sm text-center">
+            {error}
+          </div>
+        )}
 
         <div className="mb-4">
           <label className="block text-sm mb-1 text-gray-300">Email</label>
@@ -74,9 +82,9 @@ const Login = () => {
 
         <p className="mt-4 text-sm text-center text-gray-400">
           Don&apos;t have an account?{" "}
-          <a href="/register" className="text-blue-400 hover:underline">
+          <Link to="/register" className="text-blue-400 hover:underline">
             Register
-          </a>
+          </Link>
         </p>
       </form>
     </div>

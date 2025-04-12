@@ -10,15 +10,17 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const { user, logout } = useAuth();
+
+  console.log("Logged in user:", user);
+
   const navigate = useNavigate();
   const profileRef = useRef(null);
 
   const handleLogout = () => {
     logout();
-    navigate("/"); // ✅ redirect to home
+    navigate("/");
   };
 
-  // Close profile menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (profileRef.current && !profileRef.current.contains(event.target)) {
@@ -41,7 +43,7 @@ const Navbar = () => {
       }}
     >
       <div className="max-w-7xl mx-auto flex justify-between items-center">
-        {/* Logo (Left side) */}
+        {/* Logo */}
         <Link
           to="/"
           className="flex items-center space-x-2 text-2xl font-bold text-blue-600"
@@ -50,9 +52,8 @@ const Navbar = () => {
           <span>CollabEdTech</span>
         </Link>
 
-        {/* Right-side Navigation Wrapper */}
+        {/* Desktop Links */}
         <div className="flex items-center space-x-8 ml-auto">
-          {/* Navigation Links (Desktop) */}
           <div className="hidden md:flex space-x-6">
             <Link
               to="/"
@@ -78,9 +79,15 @@ const Navbar = () => {
             >
               Mentors
             </Link>
+            <Link
+              to="/collab"
+              className="text-gray-700 hover:text-blue-500 font-semibold text-[1.05rem]"
+            >
+              Collab
+            </Link>
           </div>
 
-          {/* Auth/Profile Section */}
+          {/* Auth/Profile */}
           <div className="hidden md:flex items-center space-x-4 relative">
             {!user ? (
               <>
@@ -107,7 +114,14 @@ const Navbar = () => {
                 {showProfileMenu && (
                   <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md z-50">
                     <div className="px-4 py-2 text-gray-800 border-b">
-                      {user.name}
+                      <p className="font-semibold">{user.name}</p>
+                      <p className="text-sm text-gray-600">{user.role}</p>
+                      <p className="text-sm mt-1">
+                        Skills:{" "}
+                        {user.skills && user.skills.length > 0
+                          ? user.skills.join(", ")
+                          : "No skills listed"}
+                      </p>
                     </div>
                     <button
                       onClick={handleLogout}
@@ -141,19 +155,13 @@ const Navbar = () => {
           >
             Discover
           </Link>
+          
           <Link
-            to="/projects"
+            to="/collab"
             onClick={() => setIsOpen(false)}
             className="text-gray-700 hover:text-blue-500"
           >
-            Projects
-          </Link>
-          <Link
-            to="/mentors"
-            onClick={() => setIsOpen(false)}
-            className="text-gray-700 hover:text-blue-500"
-          >
-            Mentors
+            Collab
           </Link>
 
           {!user ? (
@@ -171,7 +179,27 @@ const Navbar = () => {
             </>
           ) : (
             <>
-              <div className="text-gray-800 font-medium">{user.name}</div>
+              {showProfileMenu && (
+                <div className="absolute right-0 mt-2 w-64 bg-white shadow-lg rounded-md z-50">
+                  <div className="px-4 py-2 text-gray-800 border-b">
+                    <p className="font-semibold">{user.name}</p>
+                    <p className="text-sm text-gray-600">{user.role}</p>
+                    <p className="text-sm mt-1">
+                      Skills:{" "}
+                      {user.skills && user.skills.length > 0
+                        ? user.skills.join(", ")
+                        : "No skills listed"}
+                    </p>
+                  </div>
+                  <button
+                    onClick={handleLogout}
+                    className="w-full px-4 py-2 text-left text-red-600 hover:bg-gray-100"
+                  >
+                    Logout
+                  </button>
+                </div>
+              )}
+
               <button
                 onClick={() => {
                   handleLogout();
