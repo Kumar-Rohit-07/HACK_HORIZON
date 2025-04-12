@@ -1,12 +1,9 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const projectSchema = new mongoose.Schema({
-  title: String,
-  description: String,
-  techStack: [String],
-  members: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-  creator: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-}, { timestamps: true });
+  name: { type: String, required: true },
+  members: [String],
+  skills: [String], // optional, if you want skill-based filtering
+});
 
-const Project = mongoose.model('Project', projectSchema);
-export default Project;
+export default mongoose.model("Project", projectSchema);

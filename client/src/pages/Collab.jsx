@@ -1,11 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
-
-const sampleProjects = [
-  { id: 1, name: "WebDev Wizards", skills: ["webdev", "react"] },
-  { id: 2, name: "AI Pioneers", skills: ["machine learning", "python"] },
-  { id: 3, name: "Full Stack Force", skills: ["webdev", "nodejs", "mongo"] },
-];
+import axios from "axios";
 
 const Collab = () => {
   const { user } = useAuth();
@@ -17,13 +12,31 @@ const Collab = () => {
   const [filteredProjects, setFilteredProjects] = useState([]);
   const [userProjects, setUserProjects] = useState([]);
   const [showMyProjects, setShowMyProjects] = useState(false);
+  const [projects, setProjects] = useState([]);
 
-  const handleSearch = (e) => {
-    const term = e.target.value.toLowerCase();
-    setSearchTerm(term);
+  // Fetch all projects from the backend
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const res = await axios.get("/api/projects"); // Adjust to your backend route
+        setProjects(res.data.projects); // adjust depending on your response structure
+      } catch (err) {
+        console.error("Error fetching projects:", err);
+      }
+    };
 
-    const matched = sampleProjects.filter((project) =>
-      project.skills.some((skill) => skill.toLowerCase().includes(term))
+    fetchProjects();
+  }, []);
+
+  const handleSearch = () => {
+    const term = searchTerm.toLowerCase();
+    if (!Array.isArray(projects)) {
+      console.error("Projects is not an array:", projects);
+      return;
+    }
+
+    const matched = projects.filter((project) =>
+      project.skills?.some((skill) => skill.toLowerCase().includes(term))
     );
 
     setFilteredProjects(matched);
@@ -41,35 +54,54 @@ const Collab = () => {
     setMembers(updated);
   };
 
-  const handleCreateProject = () => {
+  const handleCreateProject = async () => {
     const project = {
-      id: Date.now(),
       name: newProjectName,
       members: members.filter((m) => m.trim() !== ""),
     };
-    setUserProjects([...userProjects, project]);
-    alert("Project created successfully!");
-    setNewProjectName("");
-    setMembers([""]);
-    setShowCreateForm(false);
-    setSearchTerm("");
-    setFilteredProjects([]);
+
+    try {
+      const res = await axios.post("/api/projects", project);
+      setUserProjects([...userProjects, res.data]);
+      alert("Project created successfully!");
+      setNewProjectName("");
+      setMembers([""]);
+      setShowCreateForm(false);
+      setSearchTerm("");
+      setFilteredProjects([]);
+    } catch (err) {
+      console.error("Error creating project:", err);
+    }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-purple-700 via-purple-500 to-purple-300">
       <div className="w-full max-w-5xl bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-8 shadow-2xl">
-        <h2 className="text-3xl font-bold mb-6 text-center text-white">Collaborate on Projects</h2>
+        <h2 className="text-3xl font-bold mb-6 text-center text-white">
+          Collaborate on Projects
+        </h2>
 
         {/* Search bar + buttons */}
         <div className="flex flex-wrap items-center gap-4 mb-6">
           <input
             type="text"
             value={searchTerm}
-            onChange={handleSearch}
+            onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search skills (e.g., webdev)"
             className="flex-1 min-w-[200px] border border-gray-300 rounded px-4 py-2"
           />
+          <button
+            onClick={handleSearch}
+            className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700"
+          >
+            🔍 Search
+          </button>
+          <button
+            onClick={() => alert("Mentor search coming soon!")}
+            className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700"
+          >
+            🎓 Find Mentors
+          </button>
           <button
             onClick={() => {
               setShowCreateForm(true);
@@ -100,18 +132,20 @@ const Collab = () => {
             {filteredProjects.map((project) => {
               const matchedSkills =
                 user?.skills?.filter((skill) =>
-                  project.skills.includes(skill.toLowerCase())
+                  project.skills?.includes(skill.toLowerCase())
                 ) || [];
 
               return (
                 <div
-                  key={project.id}
+                  key={project._id}
                   className="bg-white/10 p-4 shadow-md rounded-lg border border-white/10 flex justify-between items-center"
                 >
                   <div>
-                    <h3 className="text-lg font-semibold text-white">{project.name}</h3>
+                    <h3 className="text-lg font-semibold text-white">
+                      {project.name}
+                    </h3>
                     <p className="text-sm text-gray-200">
-                      Skills: {project.skills.join(", ")}
+                      Skills: {project.skills?.join(", ")}
                     </p>
                     {matchedSkills.length > 0 && (
                       <p className="text-green-400 font-semibold mt-1">
@@ -131,18 +165,24 @@ const Collab = () => {
         {/* My Projects Section */}
         {showMyProjects && (
           <div className="mb-6 space-y-4">
-            <h3 className="text-xl font-semibold mb-2 text-white">My Created Projects:</h3>
+            <h3 className="text-xl font-semibold mb-2 text-white">
+              My Created Projects:
+            </h3>
             {userProjects.length === 0 ? (
-              <p className="text-gray-200">You haven't created any projects yet.</p>
+              <p className="text-gray-200">
+                You haven't created any projects yet.
+              </p>
             ) : (
               userProjects.map((project) => (
                 <div
-                  key={project.id}
+                  key={project._id}
                   className="bg-white/10 p-4 shadow-md rounded-lg border border-white/10"
                 >
-                  <h4 className="text-lg font-semibold text-white">{project.name}</h4>
+                  <h4 className="text-lg font-semibold text-white">
+                    {project.name}
+                  </h4>
                   <p className="text-sm text-gray-200">
-                    Members: {project.members.join(", ")}
+                    Members: {project.members?.join(", ")}
                   </p>
                 </div>
               ))
@@ -153,7 +193,9 @@ const Collab = () => {
         {/* Create Project Form */}
         {showCreateForm && (
           <div className="mb-6 bg-white/10 p-4 rounded-lg shadow-md border border-white/10">
-            <h3 className="text-lg font-semibold mb-3 text-white">Create New Project:</h3>
+            <h3 className="text-lg font-semibold mb-3 text-white">
+              Create New Project:
+            </h3>
             <input
               type="text"
               placeholder="Project Name"
