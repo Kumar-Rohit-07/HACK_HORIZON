@@ -8,7 +8,7 @@ import Home from "./pages/Home";
 import Discover from "./pages/Discover";
 import Projects from "./pages/Projects";
 import Mentors from "./pages/Mentors";
-import Profile from "./pages/Profile";
+import Collab from "./pages/Collab";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import FAQs from "./pages/FAQs";
@@ -62,10 +62,10 @@ const App = () => {
             }
           />
           <Route
-            path="/profile"
+            path="/collab"
             element={
               <PrivateRoute>
-                <Profile />
+                <Collab />
               </PrivateRoute>
             }
           />

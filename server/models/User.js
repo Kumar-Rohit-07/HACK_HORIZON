@@ -19,7 +19,10 @@ const userSchema = new mongoose.Schema({
     enum: ['learner', 'mentor'],
     default: 'learner',
   },
-  // Add more fields later like skills, etc.
+  skills: {
+    type: [String],
+    default: [], // Start with an empty list of skills
+  }
 }, { timestamps: true });
 
 export default mongoose.model('User', userSchema);

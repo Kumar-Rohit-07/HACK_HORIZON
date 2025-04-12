@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 
 export const register = async (req, res) => {
   try {
-    const { name, email, password, role } = req.body;
+    const { name, email, password, role, skills = [] } = req.body;
 
     const existingUser = await User.findOne({ email });
     if (existingUser) return res.status(400).json({ message: 'User already exists' });
@@ -15,50 +15,62 @@ export const register = async (req, res) => {
       name,
       email,
       password: hashedPassword,
-      role
+      role,
+      skills: Array.isArray(skills) ? skills : skills.split(",").map(skill => skill.trim()),
+ // Convert to array
     });
 
     const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
-    res.status(201).json({ token, user: { id: newUser._id, name, email, role } });
+    res.status(201).json({
+      user: {
+        _id: newUser._id,
+        name: newUser.name,
+        email: newUser.email,
+        role: newUser.role,
+        skills: newUser.skills,
+      },
+      token,
+    });
+    
+    
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // 1. Check if user exists
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(400).json({ message: "User not found" });
     }
 
-    // 2. Check if password matches
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(400).json({ message: "Invalid credentials" });
     }
 
-    // 3. Generate JWT token
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "1d",
     });
 
-    // 4. Respond with token and user data
     res.status(200).json({
-      token,
       user: {
+        _id: user._id,
         name: user.name,
         email: user.email,
+        role: user.role,
+        skills: user.skills,
       },
+      token,
     });
+    
+    
+    
   } catch (error) {
-    console.error("Login Error:", error); // 👈 Important
+    console.error("Login Error:", error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
-
-

@@ -9,6 +9,8 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("learner");
+  const [skills, setSkills] = useState("");
+
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -19,7 +21,10 @@ const Register = () => {
     e.preventDefault();
     setLoading(true);
 
-    const success = await register(name, email, password, role); // pass role
+    const formattedSkills = skills.split(",").map((skill) => skill.trim());
+
+const success = await register(name, email, password, role, formattedSkills);
+ // pass role
 
     if (success) {
       toast.success("User registered successfully!");
@@ -94,7 +99,17 @@ const Register = () => {
             <option value="builder">Builder</option>
           </select>
         </div>
-
+        <div className="relative mb-6">
+        <input
+          type="text"
+          placeholder="Skills (comma-separated, e.g. React,Node.js,UI/UX)"
+          value={skills}
+          onChange={(e) => setSkills(e.target.value)}
+          className="w-full p-3 bg-gray-800 text-gray-100 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          required
+        />
+      </div>
+      
         <button
           type="submit"
           className={`w-full p-3 rounded-lg font-semibold shadow-md transition-all duration-300 ${

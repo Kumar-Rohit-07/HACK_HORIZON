@@ -80,13 +80,13 @@ const Home = () => {
       {/* Buttons */}
       <div className="flex flex-col sm:flex-row gap-6 mt-10 mb-6">
         <a
-          href="#"
+          href="/collab"
           className="bg-blue-500 text-white px-6 py-3 rounded-xl shadow transform transition-transform duration-300 hover:scale-105 text-center"
         >
           Get Started
         </a>
         <a
-          href=""
+          href="/discover"
           className="bg-white text-blue-600 px-6 py-3 rounded-xl shadow transform transition-transform duration-300 hover:scale-105 text-center"
         >
           Learn More
